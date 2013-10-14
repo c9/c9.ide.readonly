@@ -13,10 +13,10 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         plugin.freezePublicAPI({
             find: function(options, callback) {
-                callback(new Error("find is not awailable in readonly mode"));
+                callback(new Error("find is not available in readonly mode"));
             },
             list: function(options, callback) {
-                callback(new Error("find is not awailable in readonly mode"));
+                callback(new Error("find is not available in readonly mode"));
             }
         });
         
