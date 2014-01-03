@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "layout"
+        "Plugin", "dialog.error"
     ];
     main.provides = ["readonly"];
     return main;
 
     function main(options, imports, register) {
-        var Plugin = imports.Plugin;
-        var layout = imports.layout;
+        var Plugin    = imports.Plugin;
+        var showError = imports["dialog.error"].show;
         
         /***** Initialization *****/
         
@@ -18,7 +18,7 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            layout.showError("Workspace is read only");
+            showError("Workspace is read only");
         }
         
         /***** Lifecycle *****/
