@@ -1,8 +1,9 @@
 /**
  * Access control dialogs
  */
-"use strict";
 define(function(require, exports, module) {
+"use strict";
+
     main.consumes = ["Plugin", "api", "dialog.alert", "dialog.question"];
     main.provides = ["access_control"];
     return main;
