@@ -33,7 +33,7 @@ define(function(require, exports, module) {
                     showCancelAccessDialog();
                 }
                 else {
-                    console.log("Just a read-only member !");
+                    console.log("Just a read-only member!");
                 }
             });
         }
