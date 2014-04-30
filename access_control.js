@@ -41,7 +41,7 @@ define(function(require, exports, module) {
         function showRequestAccessDialog() {
             question("Workspace Access",
               "You don't currently have access to this workspace",
-              "Would you like to request access ?",
+              "Would you like to request access?",
               function(){
                   // Yes
                   api.collab.post("request_access", function (err, member) {
@@ -58,7 +58,7 @@ define(function(require, exports, module) {
         function showCancelAccessDialog() {
             question("Workspace Access",
               "Request access pending approval",
-              "Would you like to cancel your access reqyest ?",
+              "Would you like to cancel your access request?",
               function(){
                   // Yes
                   api.collab.delete("cancel_request", function (err) {
