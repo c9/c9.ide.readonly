@@ -8,7 +8,7 @@ define(function(require, exports, module) {
     return main;
 
     function main(options, imports, register) {
-        var Plugin   = imports.Plugin;
+        var Plugin = imports.Plugin;
         var settings = imports.settings;
         
         settings.on("read", function(){

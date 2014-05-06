@@ -9,9 +9,9 @@ define(function(require, exports, module) {
     return main;
 
     function main(options, imports, register) {
-        var Plugin   = imports.Plugin;
-        var api      = imports.api;
-        var alert    = imports["dialog.alert"].show;
+        var Plugin = imports.Plugin;
+        var api = imports.api;
+        var alert = imports["dialog.alert"].show;
         var question = imports["dialog.question"].show;
 
         var plugin = new Plugin("Ajax.org", main.consumes);
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
         });
 
         register(null, {
-            access_control : plugin
+            access_control: plugin
         });
     }
 });

@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     return main;
 
     function main(options, imports, register) {
-        var Plugin    = imports.Plugin;
+        var Plugin = imports.Plugin;
         var showError = imports["dialog.error"].show;
         
         /***** Initialization *****/
