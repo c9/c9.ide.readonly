@@ -18,7 +18,7 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            showError("This workspace is read only; see the Collaborate tab if you would like write access.");
+            showError("Workspace is read only.");
         }
         
         /***** Lifecycle *****/
