@@ -47,9 +47,10 @@ define(function(require, exports, module) {
             });
         }
 
-        function showRequestAccessDialog() {
+        function showRequestAccessDialog(write) {
             showQuestion("Workspace Access",
-              "You don't currently have access to this workspace",
+              "You don't currently have " + (write ? "write " : "")
+              + "access to this workspace",
               "Would you like to request access?",
               function(){
                   // Yes
@@ -100,7 +101,9 @@ define(function(require, exports, module) {
         });
 
         plugin.freezePublicAPI({
-            requestAccess: requestAccess
+            requestAccess: requestAccess,
+            
+            showRequestAccessDialog: showRequestAccessDialog
         });
 
         register(null, {
