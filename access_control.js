@@ -25,18 +25,21 @@ define(function(require, exports, module) {
             api.collab.get("access_info", function (err, info) {
                 if (err) return showAlert("Error", info);
 
-                if (!info.member) {
-                    // Do you want to request access to this workspace
-                    showRequestAccessDialog();
-                }
-                else if (info.pending) {
-                    // Already requested, do you want to cancel ?
-                    showCancelAccessDialog();
+                if (info.private) {
+                    if (!info.member) {
+                        // Do you want to request access to this workspace
+                        showRequestAccessDialog();
+                    }
+                    else if (info.pending) {
+                        // Already requested, do you want to cancel ?
+                        showCancelAccessDialog();
+                    }
                 }
                 else {
                     if (!info.member)
                         showError("Workspace is read only. Use the Collaborate tab to request access.");
                 }
+                
             });
         }
 
