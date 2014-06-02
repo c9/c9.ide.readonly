@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 "use strict";
 
     main.consumes = ["Plugin", "api", "dialog.alert", "dialog.question", "dialog.error"];
-    main.provides = ["access_control"];
+    main.provides = ["accessControl"];
     return main;
 
     function main(options, imports, register) {
@@ -107,7 +107,7 @@ define(function(require, exports, module) {
         });
 
         register(null, {
-            access_control: plugin
+            accessControl: plugin
         });
     }
 });
