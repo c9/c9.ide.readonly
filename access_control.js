@@ -16,11 +16,15 @@ define(function(require, exports, module) {
         var showError = imports["dialog.error"].show;
 
         var plugin = new Plugin("Ajax.org", main.consumes);
+        var readonly = options.readonly;
 
         var loaded = false;
         function load() {
             if (loaded) return;
             loaded = true;
+            
+            if (!readonly)
+                return;
 
             api.collab.get("access_info", function (err, info) {
                 if (err) return showAlert("Error", info);
@@ -49,15 +53,19 @@ define(function(require, exports, module) {
               "Would you like to request access?",
               function(){
                   // Yes
-                  api.collab.post("request_access", function (err, member) {
-                      if (err) return showAlert("Error", err);
-                      showAlert("Done", "Access request sent", "We have sent an access request to the admin of this workspace. You can come back when the admin grants your access");
-                  });
+                 requestAccess();
               },
               function(){
                   // No - nothing
               }
             );
+        }
+        
+        function requestAccess() {
+             api.collab.post("request_access", function (err, member) {
+                 if (err) return showAlert("Error Requesting access", err.message || err);
+                 showAlert("Done", "Access request sent", "We have sent an access request to the admin of this workspace. You can come back when the admin grants your access");
+             });
         }
 
         function showCancelAccessDialog() {
@@ -92,6 +100,7 @@ define(function(require, exports, module) {
         });
 
         plugin.freezePublicAPI({
+            requestAccess: requestAccess
         });
 
         register(null, {
