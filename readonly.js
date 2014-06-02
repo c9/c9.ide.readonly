@@ -9,6 +9,8 @@ define(function(require, exports, module) {
         var Plugin = imports.Plugin;
         var showError = imports["dialog.error"].show;
         
+        var shouldShowError = options.shouldShowError;
+        
         /***** Initialization *****/
         
         var plugin = new Plugin("Ajax.org", main.consumes);
@@ -18,7 +20,8 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            showError("Workspace is read only.");
+            if (shouldShowError)
+                showError("Workspace is read only.");
         }
         
         /***** Lifecycle *****/
