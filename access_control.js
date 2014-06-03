@@ -4,7 +4,10 @@
 define(function(require, exports, module) {
 "use strict";
 
-    main.consumes = ["Plugin", "api", "dialog.alert", "dialog.question", "dialog.error"];
+    main.consumes = [
+        "Plugin", "api", "dialog.alert", "dialog.question", "dialog.error",
+        "ui", "layout", "commands"
+    ];
     main.provides = ["accessControl"];
     return main;
 
@@ -14,9 +17,13 @@ define(function(require, exports, module) {
         var showAlert = imports["dialog.alert"].show;
         var showQuestion = imports["dialog.question"].show;
         var showError = imports["dialog.error"].show;
+        var ui = imports.ui;
+        var layout = imports.layout;
+        var commands = imports.commands;
 
         var plugin = new Plugin("Ajax.org", main.consumes);
         var readonly = options.readonly;
+        var lastInfo = {};
 
         var loaded = false;
         function load() {
@@ -28,6 +35,8 @@ define(function(require, exports, module) {
 
             api.collab.get("access_info", function (err, info) {
                 if (err) return showAlert("Error", info);
+                
+                lastInfo = info;
 
                 if (info.private) {
                     if (!info.member) {
@@ -40,14 +49,38 @@ define(function(require, exports, module) {
                     }
                 }
                 else {
+                    addRequestButton();
                     if (!info.member)
-                        showError("Workspace is read only. Use the Collaborate tab to request access.");
+                        showError("Workspace is read only. Use \"Request Access\" to request write access.");
                 }
                 
             });
         }
+        
+        function addRequestButton() {
+            var btn = new ui.button({
+                skin: "c9-menu-btn",
+                caption: "Request Access",
+                tooltip: "Request Write Access",
+                command: "request_access"
+            });
+
+            commands.addCommand({
+                name: "request_access",
+                hint: "Share the workspace",
+                group: "General",
+                exec: showRequestAccessDialog
+            }, plugin);
+
+            ui.insertByIndex(layout.findParent({
+                name: "preferences"
+            }), btn, 600, plugin);
+        }
 
         function showRequestAccessDialog(write) {
+            if (lastInfo.pending)
+                return showCancelAccessDialog();
+            
             showQuestion("Workspace Access",
               "You don't currently have " + (write ? "write " : "")
               + "access to this workspace",
@@ -55,6 +88,7 @@ define(function(require, exports, module) {
               function(){
                   // Yes
                  requestAccess();
+                 lastInfo.pending = true;
               },
               function(){
                   // No - nothing
@@ -77,6 +111,7 @@ define(function(require, exports, module) {
                   // Yes
                   api.collab.delete("cancel_request", function (err) {
                       if (err) return showAlert("Error", err);
+                      lastInfo.pending = false;
                       showAlert("Done", "Access request cancelled", "We don't currently have access to this workspace");
                   });
               },
