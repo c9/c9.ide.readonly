@@ -23,6 +23,7 @@ define(function(require, exports, module) {
 
         var plugin = new Plugin("Ajax.org", main.consumes);
         var readonly = options.readonly;
+        var dashboardUrl = options.dashboardUrl;
         var lastInfo = {};
 
         var loaded = false;
@@ -90,9 +91,7 @@ define(function(require, exports, module) {
                  requestAccess();
                  lastInfo.pending = true;
               },
-              function(){
-                  // No - nothing
-              }
+              redirectToDashboardIfPrivate
             );
         }
         
@@ -115,10 +114,13 @@ define(function(require, exports, module) {
                       showAlert("Done", "Access request cancelled", "We don't currently have access to this workspace");
                   });
               },
-              function(){
-                  // No - nothing
-              }
+              redirectToDashboardIfPrivate
             );
+        }
+
+        function redirectToDashboardIfPrivate() {
+            if (lastInfo.private)
+                window.top.location.href = dashboardUrl;
         }
 
         /***** Lifecycle *****/
