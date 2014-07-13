@@ -98,7 +98,7 @@ define(function(require, exports, module) {
         function requestAccess() {
              api.collab.post("request_access", function (err, member) {
                  if (err) return showAlert("Error Requesting access", err.message || err);
-                 showAlert("Done", "Access request sent", "We have sent an access request to the admin of this workspace. You can come back when the admin grants your access");
+                 showAlert("Done", "Access request sent", "We have sent an access request to the admin of this workspace.");
              });
         }
 
