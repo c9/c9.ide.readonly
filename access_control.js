@@ -54,7 +54,7 @@ define(function(require, exports, module) {
                     
                     if (!info.member || info.pending) {
                         notify("<div class='c9-readonly'>You are in Read-Only Mode. "
-                            + (info.pending ? "" : "Click on this bar to request access to the owner.")
+                            + (info.pending ? "" : "Click on this bar to request access from the owner.")
                             + "</div>", true);
                         
                         if (!info.pending) {
