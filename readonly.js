@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "dialog.error"
+        "Plugin", "dialog.notifcation"
     ];
     main.provides = ["readonly"];
     return main;
 
     function main(options, imports, register) {
         var Plugin = imports.Plugin;
-        var showError = imports["dialog.error"].show;
+        var notify = imports["dialog.notifcation"].show;
         
         var shouldShowError = options.shouldShowError;
         
@@ -20,8 +20,11 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            if (shouldShowError)
-                showError("Workspace is read only.");
+            if (shouldShowError) {
+                notify("<div class='c9-update'>A new version of "
+                    + "Cloud9 is available. Click this bar to update to the new "
+                    + "version (requires a restart).</div>", true);
+            }
         }
         
         /***** Lifecycle *****/
