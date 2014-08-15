@@ -21,9 +21,9 @@ define(function(require, exports, module) {
             loaded = true;
             
             if (shouldShowError) {
-                notify("<div class='c9-update'>A new version of "
-                    + "Cloud9 is available. Click this bar to update to the new "
-                    + "version (requires a restart).</div>", true);
+                notify("<div class='c9-readonly'>You are in Read-Only Mode. "
+                    + "Contact the workspace owner to get write permissions."
+                    + "</div>", true);
             }
         }
         
