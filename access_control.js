@@ -6,7 +6,7 @@ define(function(require, exports, module) {
 
     main.consumes = [
         "Plugin", "api", "dialog.alert", "dialog.question",
-        "ui", "layout", "commands", "dialog.notifcation"
+        "ui", "layout", "commands", "dialog.notification"
     ];
     main.provides = ["accessControl"];
     return main;
