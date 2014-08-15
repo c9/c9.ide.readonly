@@ -5,8 +5,8 @@ define(function(require, exports, module) {
 "use strict";
 
     main.consumes = [
-        "Plugin", "api", "dialog.alert", "dialog.question", "dialog.error",
-        "ui", "layout", "commands"
+        "Plugin", "api", "dialog.alert", "dialog.question",
+        "ui", "layout", "commands", "dialog.notifcation"
     ];
     main.provides = ["accessControl"];
     return main;
@@ -16,7 +16,7 @@ define(function(require, exports, module) {
         var api = imports.api;
         var showAlert = imports["dialog.alert"].show;
         var showQuestion = imports["dialog.question"].show;
-        var showError = imports["dialog.error"].show;
+        var notify = imports["dialog.notification"].show;
         var ui = imports.ui;
         var layout = imports.layout;
         var commands = imports.commands;
@@ -51,8 +51,18 @@ define(function(require, exports, module) {
                 }
                 else {
                     addRequestButton();
-                    if (!info.member)
-                        showError("Workspace is read only. Use \"Request Access\" to request write access.");
+                    
+                    if (!info.member || info.pending) {
+                        notify("<div class='c9-readonly'>You are in Read-Only Mode. "
+                            + (info.pending ? "" : "Click on this bar to request access to the owner.")
+                            + "</div>", true);
+                        
+                        if (!info.pending) {
+                            document.querySelector(".c9-readonly").addEventListener("click", function(){
+                                showRequestAccessDialog();
+                            }, false);
+                        }
+                    }
                 }
                 
             });
