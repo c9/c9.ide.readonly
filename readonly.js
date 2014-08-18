@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Plugin", "dialog.notifcation"
+        "Plugin", "dialog.notification"
     ];
     main.provides = ["readonly"];
     return main;
 
     function main(options, imports, register) {
         var Plugin = imports.Plugin;
-        var notify = imports["dialog.notifcation"].show;
+        var notify = imports["dialog.notification"].show;
         
         var shouldShowError = options.shouldShowError;
         
