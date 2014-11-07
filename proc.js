@@ -13,6 +13,7 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         plugin.freezePublicAPI({
             execFile: function(path, options, callback) {
+                if (!callback) callback = options;
                 callback(new Error("Not implemented in read only mode"));
             }
         });
