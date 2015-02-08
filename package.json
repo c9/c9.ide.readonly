@@ -9,19 +9,17 @@
         "url": "http://github.com/c9/c9.ide.readonly.git"
     },
     "plugins": {
-        "plugin": {
-            "access_control": {},
-            "finder": {},
-            "preferences": {},
-            "proc": {},
-            "readonly": {},
-            "save": {}
-        }
+        "access_control": {},
+        "finder": {},
+        "preferences": {},
+        "proc": {},
+        "readonly": {},
+        "save": {}
     },
     "categories": [
         "core"
     ],
     "licenses": [
-        ""
+        "MIT"
     ]
 }
