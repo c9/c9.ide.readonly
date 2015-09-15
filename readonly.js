@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     main.consumes = [
         "Plugin", "dialog.notification"
     ];
-    main.provides = ["readonly"];
+    main.provides = ["readonly", "preferences.experimental"];
     return main;
 
     function main(options, imports, register) {
@@ -37,6 +37,11 @@ define(function(require, exports, module) {
         
         plugin.freezePublicAPI({});
         
-        register(null, { readonly : plugin });
+        register(null, { 
+            readonly : plugin,
+            "preferences.experimental": {
+                addExperiment: function() {}
+            }
+        });
     }
 });
