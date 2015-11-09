@@ -24,6 +24,7 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         var readonly = options.readonly;
         var dashboardUrl = options.dashboardUrl;
+        
         var lastInfo = {};
 
         var loaded = false;
@@ -39,7 +40,19 @@ define(function(require, exports, module) {
                 
                 lastInfo = info;
 
-                if (info.private) {
+                if (info.admin){
+                    var profileBaseUrl = dashboardUrl.match("^http(s)?://.+?/")[0];
+
+                    notify(
+                        '<div class="c9-readonly">Your workspace is in Read-Only Mode because your '
+                        + 'account has ran out of quota for this type of workspace. '
+                        + 'Please visit your <a target="_blank" style="color: blue;" href="'
+                        +  profileBaseUrl 
+                        + 'account/billing">subscription page to buy more resources</a>.'
+                        + "</div>"
+                    );
+                }
+                else if (info.private) {
                     if (!info.member) {
                         // Do you want to request access to this workspace
                         showRequestAccessDialog();
@@ -104,7 +117,7 @@ define(function(require, exports, module) {
               redirectToDashboardIfPrivate
             );
         }
-        
+
         function requestAccess() {
              api.collab.post("request_access", function (err, member) {
                  if (err) return showAlert("Error Requesting access", err.message || err);
