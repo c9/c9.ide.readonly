@@ -114,7 +114,11 @@ define(function(require, exports, module) {
                  requestAccess();
                  lastInfo.pending = true;
               },
-              redirectToDashboardIfPrivate
+              redirectToDashboardIfPrivate,
+              {
+                  yes: "Request access",
+                  no: "Not now"
+              }
             );
         }
 
