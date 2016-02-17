@@ -26,6 +26,7 @@ define(function(require, exports, module) {
         var dashboardUrl = options.dashboardUrl;
         
         var lastInfo = {};
+        var btn;
 
         var loaded = false;
         function load() {
@@ -82,12 +83,12 @@ define(function(require, exports, module) {
         }
         
         function addRequestButton() {
-            var btn = new ui.button({
+            btn = new ui.button({
                 skin: "c9-menu-btn",
-                caption: "Request Access",
                 tooltip: "Request Write Access",
                 command: "request_access"
             });
+            updateButton();
 
             commands.addCommand({
                 name: "request_access",
@@ -99,6 +100,14 @@ define(function(require, exports, module) {
             ui.insertByIndex(layout.findParent({
                 name: "preferences"
             }), btn, 600, plugin);
+        }
+
+        function updateButton() {
+            if (!btn) return;
+            btn.setAttribute("caption", 
+                lastInfo.pending ? "Cancel Access Request" : "Request Access");
+            btn.setAttribute("tooltip", 
+                lastInfo.pending ? "Cancel Pending Access Request" : "Request Write Access");
         }
 
         function showRequestAccessDialog(write) {
@@ -126,6 +135,7 @@ define(function(require, exports, module) {
             api.collab.post("request_access", function (err, member) {
                 if (err) return showAlert("Error Requesting access", err.message || err);
                 showAlert("Done", "Access request sent", "We have sent an access request to the admin of this workspace.");
+                updateButton();
             });
         }
 
@@ -136,9 +146,12 @@ define(function(require, exports, module) {
                 function(){
                     // Yes
                     api.collab.delete("cancel_request", function (err) {
-                        if (err) return showAlert("Error", err);
+                        if (err && err.message && /isn't a pending workspace member/.test(err.message))
+                            err = null;
+                        if (err) return showAlert("Error", err.message || err);
                         lastInfo.pending = false;
                         showAlert("Done", "Access request cancelled", "We don't currently have access to this workspace");
+                        updateButton();
                     });
                 },
                 redirectToDashboardIfPrivate
@@ -162,6 +175,8 @@ define(function(require, exports, module) {
 
         plugin.on("unload", function(){
             loaded = false;
+            lastInfo = {};
+            btn = null;
         });
 
         plugin.freezePublicAPI({
