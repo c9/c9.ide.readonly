@@ -42,7 +42,7 @@ define(function(require, exports, module) {
                 lastInfo = info;
 
                 if (info.admin){
-                    var profileBaseUrl = dashboardUrl.match("^http(s)?://.+?/")[0];
+                    var profileBaseUrl = dashboardUrl.match("^http(s)?://[^/#?]+")[0];
 
                     notify(
                         '<div class="c9-readonly">Your workspace is in Read-Only Mode because your '
