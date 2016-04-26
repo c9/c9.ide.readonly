@@ -49,7 +49,7 @@ define(function(require, exports, module) {
                         + 'account has ran out of quota for this type of workspace. '
                         + 'Please visit your <a target="_blank" style="color: blue;" href="'
                         +  profileBaseUrl 
-                        + 'account/billing">subscription page to buy more resources</a>.'
+                        + '/account/billing">subscription page to buy more resources</a>.'
                         + "</div>"
                     );
                 }
