@@ -37,11 +37,11 @@ define(function(require, exports, module) {
                 return;
 
             api.collab.get("access_info", function (err, info) {
-                if (err) return showAlert("Error", info);
+                if (err) return showAlert("Error", err);
                 
                 lastInfo = info;
 
-                if (info.admin){
+                if (info.admin) {
                     var profileBaseUrl = dashboardUrl.match("^http(s)?://[^/#?]+")[0];
 
                     notify(
@@ -50,6 +50,14 @@ define(function(require, exports, module) {
                         + 'Please visit your <a target="_blank" style="color: blue;" href="'
                         +  profileBaseUrl 
                         + '/account/billing">subscription page to buy more resources</a>.'
+                        + "</div>"
+                    );
+                }
+                else if (info.acl == "rw") {
+                    notify(
+                        '<div class="c9-readonly">This workspace is in Read-Only Mode because owners '
+                        + 'account has ran out of quota for this type of workspace. '
+                        + 'Please ask the owner to buy more resources'
                         + "</div>"
                     );
                 }
