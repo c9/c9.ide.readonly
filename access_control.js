@@ -48,7 +48,7 @@ define(function(require, exports, module) {
                         '<div class="c9-readonly">Your workspace is in Read-Only Mode because your '
                         + 'account has ran out of quota for this type of workspace. '
                         + 'Please visit your <a target="_blank" style="color: blue;" href="'
-                        +  profileBaseUrl 
+                        + profileBaseUrl 
                         + '/account/billing">subscription page to buy more resources</a>.'
                         + "</div>"
                     );
@@ -80,7 +80,7 @@ define(function(require, exports, module) {
                             + "</div>", true);
                         
                         if (!info.pending) {
-                            document.querySelector(".c9-readonly").addEventListener("click", function(){
+                            document.querySelector(".c9-readonly").addEventListener("click", function() {
                                 showRequestAccessDialog();
                             }, false);
                         }
@@ -126,7 +126,7 @@ define(function(require, exports, module) {
                 "You don't currently have " + (write ? "write " : "")
                 + "access to this workspace",
                 "Would you like to request access?",
-                function(){
+                function() {
                     // Yes
                    requestAccess();
                    lastInfo.pending = true;
@@ -151,7 +151,7 @@ define(function(require, exports, module) {
             showQuestion("Workspace Access",
                 "Request access pending approval",
                 "Would you like to cancel your access request?",
-                function(){
+                function() {
                     // Yes
                     api.collab.delete("cancel_request", function (err) {
                         if (err && err.message && /isn't a pending workspace member/.test(err.message))
@@ -172,16 +172,16 @@ define(function(require, exports, module) {
         }
 
         /***** Lifecycle *****/
-        plugin.on("load", function(){
+        plugin.on("load", function() {
             load();
         });
-        plugin.on("enable", function(){
+        plugin.on("enable", function() {
 
         });
-        plugin.on("disable", function(){
+        plugin.on("disable", function() {
         });
 
-        plugin.on("unload", function(){
+        plugin.on("unload", function() {
             loaded = false;
             lastInfo = {};
             btn = null;

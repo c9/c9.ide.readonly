@@ -29,7 +29,7 @@ define(function(require, exports, module) {
         
         /***** Lifecycle *****/
         
-        plugin.on("load", function(){
+        plugin.on("load", function() {
             load();
         });
         
@@ -38,7 +38,7 @@ define(function(require, exports, module) {
         plugin.freezePublicAPI({});
         
         register(null, { 
-            readonly : plugin,
+            readonly: plugin,
             "preferences.experimental": {
                 addExperiment: function() {}
             }

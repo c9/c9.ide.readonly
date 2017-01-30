@@ -18,6 +18,6 @@ define(function(require, exports, module) {
             }
         });
         
-        register(null, { proc : plugin });
+        register(null, { proc: plugin });
     }
 });

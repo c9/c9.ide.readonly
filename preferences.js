@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         var Plugin = imports.Plugin;
         var settings = imports.settings;
         
-        settings.on("read", function(){
+        settings.on("read", function() {
             settings.setDefaults("user/general", [["animateui", true]]);
         });
         
@@ -20,6 +20,6 @@ define(function(require, exports, module) {
             add: function() {}
         });
         
-        register(null, { preferences : plugin });
+        register(null, { preferences: plugin });
     }
 });

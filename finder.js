@@ -20,6 +20,6 @@ define(function(require, exports, module) {
             }
         });
         
-        register(null, { finder : plugin });
+        register(null, { finder: plugin });
     }
 });

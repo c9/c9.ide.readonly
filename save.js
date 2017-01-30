@@ -13,6 +13,6 @@ define(function(require, exports, module) {
         var plugin = new Plugin("Ajax.org", main.consumes);
         plugin.freezePublicAPI({});
         
-        register(null, { save : plugin });
+        register(null, { save: plugin });
     }
 });
